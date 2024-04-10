@@ -1,18 +1,16 @@
 import { useQuery } from "react-query"
 
 export default function Example() {
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['repoData'],
-    queryFn: () =>
-      fetch('https://api.github.com/repos/TanStack/query').then((res) =>
-        res.json(),
-      ),
-  })
+  async function getData() {
+    const res = await fetch(`https://api.github.com/repos/tannerlinsley/react-query`)
+    return res.json()
+  }
+  const { isLoading, data } = useQuery('artistData', getData)
 
-  if (isLoading) return 'Loading...'
-
-  if (error) return 'An error has occurred: ' 
-
+  if ( isLoading ){
+    return <p>Loading...</p>
+  }
+  console.log(data)
   return (
     <div>
       <h1>{data.name}</h1>
