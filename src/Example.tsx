@@ -1,21 +1,6 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from '@tanstack/react-query'
+import { useQuery } from "react-query"
 
-
-const queryClient = new QueryClient()
-
-export default function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Example />
-    </QueryClientProvider>
-  )
-}
-
-function Example() {
+export default function Example() {
   const { isLoading, error, data } = useQuery({
     queryKey: ['repoData'],
     queryFn: () =>
