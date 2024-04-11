@@ -2,22 +2,23 @@ import { useQuery } from "react-query"
 
 export default function Example() {
   async function getData() {
-    const res = await fetch(`https://api.github.com/repos/tannerlinsley/react-query`)
+    const res = await fetch(`htps://api.github.com/repos/tannerlinsley/react-query12`)
     return res.json()
   }
-  const { isLoading, data } = useQuery('artistData', getData)
+  const { isLoading, data, error } = useQuery('artistData', getData)
 
+  
   if ( isLoading ){
-    return <p>Loading...</p>
+    return <h1>Loading...</h1>
   }
+  
+  if (error || (error as Error)?.message === 'Not Found') {
+    console.log('fUCK YOU')
+    return <h1>{(error as Error)?.message}</h1>
+  }
+
+  
+
   console.log(data)
-  return (
-    <div>
-      <h1>{data.name}</h1>
-      <p>{data.description}</p>
-      <strong>👀 {data.subscribers_count}</strong>{' '}
-      <strong>✨ {data.stargazers_count}</strong>{' '}
-      <strong>🍴 {data.forks_count}</strong>
-    </div>
-  )
+  
 }
